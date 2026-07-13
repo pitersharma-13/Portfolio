@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Character encoding and mobile viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piter Sharma | Web Developer</title>
+    <!-- Added: professional display and body fonts for the portfolio. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Main stylesheet: edit all visual styles in style.css -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Main JavaScript: navigation and small page interactions -->
+    <script src="script.jss" defer></script>
+</head>
+<body>
+    <!-- Fixed left sidebar navigation -->
+    <header>
+        <nav class="navbar" aria-label="Main navigation">
+            <!-- Brand link: change "Piter" to your preferred logo text -->
+            <a class="logo" href="#home">Piter<span>.</span></a>
+
+            <!-- Main page navigation links -->
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <!-- Added: direct link to the project progress tracker. -->
+                <li><a href="project-tracker.html">Tracker</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <!-- Sidebar availability and email call-to-action -->
+            <div class="sidebar-footer">
+                <p class="availability">Available for work</p>
+                <a href="mailto:your.email@example.com">Let’s work together &rarr;</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main portfolio content -->
+    <main>
+        <!-- Hero / introduction section -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <p class="eyebrow">Hello, I am</p>
+                <h1>Piter Sharma</h1>
+                <h2>BSc CSIT Student | Linux, Networking & Cybersecurity Enthusiast</h2>
+
+                <p class="intro">
+I'm a BSc CSIT student with a strong interest in Linux systems, computer networking, and cybersecurity. I'm building a solid foundation in operating systems, network administration, and ethical hacking while continuously developing practical skills through hands-on labs, projects, and real-world problem solving. My goal is to build secure, reliable systems and pursue a career in cybersecurity.
+</p>
+
+                <div class="hero-actions">
+                    <a class="button button-primary" href="#projects">View My Work</a>
+                    <a class="button button-secondary" href="#contact">Contact Me</a>
+                </div>
+            </div>
+            <!-- Profile image: replace images/piter.jpeg when you add a new photo -->
+            <div class="hero-image">
+                <div class="profile-placeholder">
+                    <img src="images/piter.jpeg" alt="Portrait of Piter Sharma">
+                </div>
+            </div>
+        </section>
+
+        <!-- About and skills section -->
+        <section class="section" id="about">
+            <p class="eyebrow">About me</p>
+            <h2>Exploring Linux, Networking & Cybersecurity.</h2>
+         <p>
+                    I have a strong passion for Linux, networking, and cybersecurity.I enjoy exploring operating systems,understanding network infrastructure, and developing practical security skills through continuous learning and hands-on experience. I’m working toward a career in cybersecurity with a focus on network security and penetration testing.
+</p>
+            <div class="skills" aria-label="Skills">
+                <span>Linux</span>
+                <span>Computer Networking</span>
+                <span>Cybersecurity</span>
+                <span>Bash</span>
+                <span>Git & GitHub</span>
+                <span>C Programming</span>
+                <span>Python</span>
+                <span>Wireshark</span>
+                <span>Nmap</span>
+                <span>Kali Linux</span>
+            </div>
+        </section>
+
+        <!-- Projects section: duplicate a project-card to add a new project -->
+        <section class="section projects-section" id="projects">
+            <p class="eyebrow">Selected work</p>
+            <h2>Recent Projects</h2>
+            <div class="project-grid">
+                <article class="project-card">
+                    <div class="project-image project-one">01</div>
+                    <div class="project-content">
+                        <div>
+                            <h3>Linux System Administration Lab</h3>
+                        </div>                                                                                                                      <p>A hands-on Linux lab where I practiced file management user                         administration, permissions, shell scripting, and essential                         command-line tools.</p>
+                        <!-- Added: opens the Linux System Administration Lab details. -->
+                        <a href="linux-system-lab.html" aria-label="View Linux System Administration Lab">View project &rarr;</a>
+                    </div>
+                </article>
+                <article class="project-card">
+                    <div class="project-image project-two">02</div>
+                    <div class="project-content">
+                        <h3>Network Configuration Lab</h3>
+                         <p>Configured IP addressing, subnetting, routing, and network services in a virtual environment to strengthen networking fundamentals.</p>
+                        <!-- Added: opens the Network Configuration Lab details. -->
+                        <a href="network-configuration-lab.html" aria-label="View Network Configuration Lab">View project &rarr;</a>
+                    </div>
+                </article>
+                <article class="project-card">
+                    <div class="project-image project-three">03</div>
+                    <div class="project-content">
+                        <h3>Cybersecurity Progress Dashboard</h3>
+                        <p>A personal dashboard for tracking my learning journey, completed labs, certifications, projects, and progress in Linux, networking, and cybersecurity.</p>
+                        <!-- Added: opens the project progress tracker page. -->
+                        <a href="project-tracker.html" aria-label="Open Cybersecurity Progress Dashboard">View project &rarr;</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Contact call-to-action section -->
+        <section class="contact-section" id="contact">
+            <p class="eyebrow">Get in touch</p>
+            <h2>Let’s build something great.</h2>
+            <p>Have a project or idea in mind? I would love to hear from you.</p>
+           <a class="button button-primary"  href="Sharmapeter07@gmail.com"> Email Me </a>
+        </section>
+        </section>
+    </main>
+
+    <!-- Footer and social media links -->
+    <footer>
+        <!-- The year is updated automatically by script.jss -->
+        <p>&copy; <span id="current-year">2026</span> Piter Sharma. Built with care.</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/piter-sharma/">LinkedIn</a>
+            <a href="https://github.com/pitersharma-13">GitHub</a>
+            <a href="https://www.instagram.com/pitershr13">Instagram</a>
+        </div>
+    </footer>
+</body>
+</html>

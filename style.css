@@ -1,0 +1,788 @@
+/* =========================================================
+   PORTFOLIO STYLESHEET
+   Edit colors and sidebar width in the variables below.
+   ========================================================= */
+
+/* ---------- 1. Design variables ---------- */
+:root {
+    --sidebar-width: 270px;
+
+    /* Added: refined cybersecurity color system. */
+    --ink: #edf6ff;
+    --muted: #9fb0c7;
+    --surface: #050914;
+    --surface-alt: #0b1423;
+    --surface-raised: #0f1d30;
+    --sidebar: #070c16;
+    --accent: #35d4f6;
+    --accent-hover: #8aeaff;
+    --accent-violet: #a78bfa;
+    --success: #3ee6a8;
+    --border: #1a314b;
+    --shadow: 0 24px 70px rgba(0, 0, 0, .32);
+}
+
+/* ---------- 2. Base page styles ---------- */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 24px;
+}
+
+body {
+    margin: 0;
+    color: var(--ink);
+    background-color: var(--surface);
+    background-image: radial-gradient(circle at 78% 4%, rgba(53, 212, 246, .11), transparent 25rem), radial-gradient(circle at 52% 88%, rgba(167, 139, 250, .09), transparent 30rem);
+    background-attachment: fixed;
+    font-family: "DM Sans", Inter, ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.65;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Added: consistent selection and keyboard-focus colors. */
+::selection {
+    color: #041019;
+    background: var(--accent);
+}
+
+:focus-visible {
+    outline: 3px solid rgba(53, 212, 246, .55);
+    outline-offset: 3px;
+}
+
+/* ---------- 3. Fixed left sidebar ---------- */
+.navbar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    width: var(--sidebar-width);
+    min-height: 100vh;
+    padding: 38px 24px 28px;
+    color: #dce3ef;
+    background: rgba(7, 12, 22, .88);
+    border-right: 1px solid rgba(147, 197, 253, .12);
+    box-shadow: 18px 0 48px rgba(0, 0, 0, .16);
+    backdrop-filter: blur(18px);
+}
+
+/* Sidebar brand / logo */
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: -.045em;
+    color: #fff;
+}
+
+.logo::before {
+    content: "P";
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    font-size: .86rem;
+    letter-spacing: 0;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent-violet));
+    border-radius: 10px;
+    box-shadow: 0 8px 22px rgba(53, 212, 246, .25);
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+/* Sidebar menu links and their hover state */
+.nav-links {
+    display: grid;
+    gap: 8px;
+    margin: 70px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-links a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 14px;
+    font-size: .94rem;
+    font-weight: 600;
+    color: #9ba6b8;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: color .2s ease, background .2s ease, transform .2s ease;
+}
+
+.nav-links a::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    margin-right: 13px;
+    background: currentColor;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+    color: var(--accent-hover);
+    background: rgba(53, 212, 246, .09);
+    outline: none;
+    transform: translateX(4px);
+}
+
+.nav-links a:focus-visible {
+    border-color: var(--accent);
+}
+
+/* Active navigation link: applied by script.jss while scrolling */
+.nav-links a.is-active {
+    color: #fff;
+    background: linear-gradient(90deg, rgba(53, 212, 246, .18), rgba(167, 139, 250, .12));
+    border-color: rgba(53, 212, 246, .25);
+    box-shadow: inset 3px 0 0 var(--accent);
+}
+
+/* Sidebar availability card */
+.sidebar-footer {
+    margin-top: auto;
+    padding: 18px 14px;
+    background: linear-gradient(145deg, rgba(53, 212, 246, .1), rgba(167, 139, 250, .06));
+    border: 1px solid rgba(147, 197, 253, .14);
+    border-radius: 12px;
+}
+
+.availability {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-size: .78rem;
+    font-weight: 650;
+    color: #c7d0df;
+}
+
+.availability::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: var(--success);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(61, 220, 151, .12);
+}
+
+.sidebar-footer a {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: .82rem;
+    color: var(--accent);
+}
+
+/* ---------- 4. Main page layout ---------- */
+main,
+footer {
+    margin-left: var(--sidebar-width);
+}
+
+main {
+    max-width: 1280px;
+    padding: 48px clamp(28px, 6vw, 88px);
+}
+
+/* Shared typography */
+.eyebrow {
+    margin: 0 0 10px;
+    font-size: .77rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+    line-height: 1.15;
+    letter-spacing: -.04em;
+    font-family: "Space Grotesk", "DM Sans", sans-serif;
+}
+
+h1 { font-size: clamp(2.8rem, 6vw, 5.3rem); }
+h2 { font-size: clamp(2rem, 4vw, 3.3rem); }
+h3 { font-size: 1.25rem; }
+
+/* ---------- 5. Hero section ---------- */
+.hero {
+    display: grid;
+    grid-template-columns: 1.5fr .8fr;
+    gap: 50px;
+    align-items: center;
+    min-height: 82vh;
+}
+
+.hero h2 {
+    margin-top: 10px;
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+    color: var(--muted);
+}
+
+.intro {
+    max-width: 620px;
+    margin: 24px 0;
+    color: var(--muted);
+}
+
+/* Shared buttons */
+.hero-actions,
+.skills,
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.button {
+    display: inline-flex;
+    padding: 11px 18px;
+    font-weight: 700;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+.button-primary {
+    color: #041019;
+    background: linear-gradient(135deg, var(--accent), #76e7fa);
+    box-shadow: 0 10px 28px rgba(53, 212, 246, .2);
+}
+
+.button-secondary {
+    color: var(--ink);
+    background: rgba(15, 29, 48, .7);
+    border-color: var(--border);
+}
+
+/* Hero profile placeholder */
+.hero-image {
+    display: grid;
+    place-items: center;
+}
+
+.profile-placeholder {
+    display: grid;
+    width: min(260px, 70vw);
+    aspect-ratio: 1;
+    place-items: center;
+    overflow: hidden; /* Added: keeps the image fully inside the profile label. */
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: -.1em;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent-violet));
+    border: 8px solid rgba(237, 246, 255, .9);
+    border-radius: 32% 68% 62% 38% / 38% 36% 64% 62%;
+    box-shadow: 0 25px 65px rgba(0, 0, 0, .36), 0 0 0 10px rgba(53, 212, 246, .06);
+}
+
+/* Added: makes the profile photo fill and stay inside the shaped label. */
+.profile-placeholder img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ---------- 6. About and skills section ---------- */
+.section,
+.contact-section {
+    padding: 100px 0;
+}
+
+.section > p:not(.eyebrow),
+.contact-section > p:not(.eyebrow) {
+    max-width: 720px;
+    color: var(--muted);
+}
+
+.skills {
+    margin-top: 25px;
+}
+
+.skills span {
+    padding: 7px 12px;
+    font-size: .84rem;
+    font-weight: 700;
+    color: #c7f6ff;
+    background: rgba(53, 212, 246, .08);
+    border: 1px solid rgba(53, 212, 246, .18);
+    border-radius: 99px;
+}
+
+/* ---------- 7. Projects section ---------- */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+}
+
+.project-card {
+    overflow: hidden;
+    background: linear-gradient(145deg, rgba(15, 29, 48, .94), rgba(8, 18, 32, .94));
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .16);
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+/* Added: polished lift effect for project cards. */
+.project-card:hover {
+    border-color: rgba(53, 212, 246, .45);
+    box-shadow: var(--shadow);
+    transform: translateY(-6px);
+}
+
+.project-image {
+    display: grid;
+    height: 150px;
+    place-items: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+/* Individual project banner colors */
+.project-one { background: linear-gradient(135deg, #0f3b55, #0a2038); }
+.project-two { background: linear-gradient(135deg, #24356b, #151d42); }
+.project-three { background: linear-gradient(135deg, #3d2569, #1a1b40); }
+
+.project-content {
+    padding: 23px;
+}
+
+.project-content p {
+    font-size: .93rem;
+    color: var(--muted);
+}
+
+.project-content a {
+    font-size: .88rem;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+/* ---------- 8. Contact and footer ---------- */
+.contact-section {
+    text-align: center;
+}
+
+.contact-section > p {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 26px clamp(28px, 6vw, 88px);
+    font-size: .85rem;
+    color: var(--muted);
+    background: rgba(6, 12, 22, .5);
+    border-top: 1px solid var(--border);
+}
+
+.social-links {
+    gap: 17px;
+}
+
+.social-links a:hover {
+    color: var(--accent);
+}
+
+/* ---------- 9. Project tracker page (added) ---------- */
+.tracker-page {
+    min-height: 100vh;
+}
+
+.tracker-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    align-items: end;
+    padding: 32px 0 44px;
+}
+
+.tracker-header p:not(.eyebrow) {
+    max-width: 600px;
+    color: var(--muted);
+}
+
+/* Added: compact summary cards for automated project insights. */
+.tracker-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.metric-card {
+    padding: 18px;
+    background: linear-gradient(145deg, rgba(18, 39, 61, .92), rgba(9, 23, 39, .92));
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, .12);
+}
+
+.metric-card span {
+    display: block;
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--muted);
+}
+
+.metric-card strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 1.65rem;
+    color: var(--accent);
+}
+
+.tracker-layout {
+    display: grid;
+    grid-template-columns: minmax(260px, .8fr) minmax(0, 1.4fr);
+    gap: 24px;
+    align-items: start;
+}
+
+/* Added: form used to save a new project in the browser. */
+.tracker-form,
+.tracker-list {
+    padding: 24px;
+    background: rgba(11, 20, 35, .82);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, .16);
+}
+
+.tracker-form h2,
+.tracker-list h2 {
+    font-size: 1.35rem;
+}
+
+.form-field {
+    display: grid;
+    gap: 6px;
+    margin-top: 16px;
+}
+
+.form-field label {
+    font-size: .86rem;
+    font-weight: 700;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font: inherit;
+    color: var(--ink);
+    background: #071422;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.form-field textarea {
+    min-height: 96px;
+    resize: vertical;
+}
+
+/* Added: clear focus feedback for tracker form controls. */
+.form-field input,
+.form-field select,
+.form-field textarea {
+    background: rgba(4, 13, 25, .85);
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(53, 212, 246, .12);
+}
+
+.field-help {
+    font-size: .75rem;
+    color: var(--muted);
+}
+
+.progress-value {
+    font-size: .84rem;
+    color: var(--accent);
+}
+
+.tracker-form .button {
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.tracker-list-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+}
+
+.tracker-count {
+    font-size: .82rem;
+    color: var(--muted);
+}
+
+.tracker-cards {
+    display: grid;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+/* Added: each saved project displays its status and progress. */
+.tracker-card {
+    padding: 18px;
+    background: linear-gradient(145deg, rgba(8, 22, 38, .95), rgba(7, 15, 27, .95));
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition: border-color .2s ease, transform .2s ease;
+}
+
+.tracker-card:hover {
+    border-color: rgba(53, 212, 246, .35);
+    transform: translateY(-2px);
+}
+
+.tracker-card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: start;
+}
+
+.tracker-card h3 {
+    font-size: 1.05rem;
+}
+
+.tracker-card p {
+    margin: 8px 0 0;
+    font-size: .9rem;
+    color: var(--muted);
+}
+
+.status-badge {
+    padding: 3px 8px;
+    font-size: .72rem;
+    font-weight: 800;
+    color: #06141d;
+    background: linear-gradient(135deg, var(--accent), #a5f3fc);
+    border-radius: 99px;
+    white-space: nowrap;
+}
+
+.progress-track {
+    height: 8px;
+    margin-top: 16px;
+    overflow: hidden;
+    background: #142940;
+    border-radius: 99px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-violet));
+    border-radius: inherit;
+}
+
+.tracker-card-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 9px;
+    font-size: .78rem;
+    color: var(--muted);
+}
+
+/* Added: explains the automatic date-based progress calculation. */
+.auto-progress-note {
+    margin-top: 12px !important;
+    font-size: .76rem !important;
+    color: var(--accent) !important;
+}
+
+.project-link {
+    font-weight: 700;
+    color: var(--accent);
+}
+
+/* ---------- 10. Individual project detail pages (added) ---------- */
+.project-detail-page {
+    min-height: 100vh;
+    padding-top: 72px;
+    padding-bottom: 72px;
+}
+
+.project-detail-hero {
+    padding: clamp(28px, 5vw, 56px);
+    background: linear-gradient(135deg, rgba(53, 212, 246, .13), rgba(167, 139, 250, .1));
+    border: 1px solid rgba(53, 212, 246, .22);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+}
+
+.project-detail-hero p:not(.eyebrow) {
+    max-width: 700px;
+    color: var(--muted);
+}
+
+.project-detail-grid {
+    display: grid;
+    grid-template-columns: 1.45fr .75fr;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+/* Added: readable detail cards used by both project pages. */
+.detail-card {
+    padding: 28px;
+    background: rgba(11, 20, 35, .82);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+}
+
+.detail-card h2 {
+    font-size: 1.4rem;
+}
+
+.detail-card p,
+.detail-card li {
+    color: var(--muted);
+}
+
+.detail-card ul {
+    display: grid;
+    gap: 9px;
+    padding-left: 20px;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 18px;
+}
+
+.project-tags span {
+    padding: 6px 10px;
+    font-size: .78rem;
+    font-weight: 700;
+    color: #c7f6ff;
+    background: rgba(53, 212, 246, .08);
+    border: 1px solid rgba(53, 212, 246, .18);
+    border-radius: 999px;
+}
+
+.delete-project {
+    padding: 0;
+    font: inherit;
+    color: #fca5a5;
+    cursor: pointer;
+    background: none;
+    border: 0;
+}
+
+.empty-tracker {
+    padding: 24px 0 4px;
+    color: var(--muted);
+    text-align: center;
+}
+
+/* ---------- 11. Tablet and mobile layout ---------- */
+@media (max-width: 800px) {
+    /* Change fixed sidebar into a compact top navigation */
+    .navbar {
+        position: sticky;
+        top: 0;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        min-height: auto;
+        padding: 13px 20px;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 2px;
+        margin: 0 0 0 auto;
+    }
+
+    .nav-links a {
+        min-height: 36px;
+        padding: 0 8px;
+        font-size: .8rem;
+    }
+
+    .nav-links a::before,
+    .sidebar-footer {
+        display: none;
+    }
+
+    main,
+    footer {
+        margin-left: 0;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 72px 0;
+    }
+
+    .hero-image { grid-row: 1; }
+    .profile-placeholder { width: 180px; font-size: 3rem; }
+    .section, .contact-section { padding: 65px 0; }
+    .project-grid { grid-template-columns: 1fr; }
+    .tracker-metrics { grid-template-columns: repeat(2, 1fr); }
+    .tracker-header,
+    .tracker-layout { grid-template-columns: 1fr; }
+    .tracker-header { display: grid; }
+    .project-detail-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- 12. Small mobile refinements ---------- */
+@media (max-width: 500px) {
+    .navbar { padding: 11px 15px; }
+    .logo::before { width: 29px; height: 29px; }
+    .nav-links a { padding: 0 5px; font-size: .72rem; }
+    main { padding: 25px 20px; }
+    footer { flex-direction: column; padding: 24px 20px; }
+    .tracker-metrics { grid-template-columns: 1fr 1fr; }
+}
