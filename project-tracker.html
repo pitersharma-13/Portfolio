@@ -50,39 +50,8 @@
         </section>
 
         <section class="tracker-layout" aria-label="Project tracking dashboard">
-            <!-- New project form -->
-            <form class="tracker-form" id="project-form">
-                <h2>Add a new project</h2>
-
-                <div class="form-field">
-                    <label for="project-name">Project name</label>
-                    <input id="project-name" name="name" type="text" placeholder="e.g. Nmap scanning lab" required>
-                </div>
-
-                <!-- Added: dates drive the project progress automatically. -->
-                <div class="form-field">
-                    <label for="project-start-date">Start date</label>
-                    <input id="project-start-date" name="startDate" type="date" required>
-                </div>
-
-                <div class="form-field">
-                    <label for="project-target-date">Target date</label>
-                    <input id="project-target-date" name="targetDate" type="date" required>
-                    <small class="field-help">Progress is calculated automatically from these two dates.</small>
-                </div>
-
-                <div class="form-field">
-                    <label for="project-description">Short description</label>
-                    <textarea id="project-description" name="description" placeholder="What are you building or learning?"></textarea>
-                </div>
-
-                <div class="form-field">
-                    <label for="project-url">Project link (optional)</label>
-                    <input id="project-url" name="url" type="url" placeholder="https://github.com/your-project">
-                </div>
-
-                <button class="button button-primary" type="submit">Save project</button>
-            </form>
+            <!-- Removed form and replaced with public showcase info -->
+            <div class="tracker-form public-info"><h2>Project Showcase</h2><p>This page displays selected projects and their progress. Project management is private and not available on the public portfolio.</p></div>
 
             <!-- Saved project cards -->
             <div class="tracker-list">
@@ -98,9 +67,6 @@
     <!-- Tracker functionality: uses localStorage so data remains after refresh. -->
     <script>
         const storageKey = "piter-portfolio-projects";
-        const form = document.querySelector("#project-form");
-        const startDateInput = document.querySelector("#project-start-date");
-        const targetDateInput = document.querySelector("#project-target-date");
         const cards = document.querySelector("#tracker-cards");
         const count = document.querySelector("#project-count");
         const totalProjects = document.querySelector("#total-projects");
@@ -108,13 +74,30 @@
         const completedProjects = document.querySelector("#completed-projects");
         const averageProgress = document.querySelector("#average-progress");
 
-        // Added: loads saved projects safely, even if browser storage was edited manually.
-        let projects = [];
-        try {
-            projects = JSON.parse(localStorage.getItem(storageKey) || "[]");
-        } catch {
-            localStorage.removeItem(storageKey);
-        }
+        // Public portfolio projects.
+        // Add a new object to this array whenever you complete a project.
+        // Visitors can only view these projects.
+        const projects = [
+            {
+                name: "Portfolio Website",
+                description: "A responsive personal portfolio built using HTML, CSS, and JavaScript to showcase my skills and projects.",
+                startDate: "2026-07-01",
+                targetDate: "2026-07-20",
+                lastUpdated: "2026-07-14",
+                url: "https://github.com/pitersharma-13"
+            },
+            // Example project. Copy this object to add another project.
+            {
+                name: "Business Landing Page",
+                description: "A modern, responsive landing page focused on clear messaging, clean UI, and improved user conversion.",
+                startDate: "2026-07-08",
+                targetDate: "2026-07-28",
+                lastUpdated: "2026-07-14",
+                url: "https://github.com/pitersharma-13"
+            }
+        ];
+        
+        
 
         // Added: prevents project text from being interpreted as HTML.
         const safeText = (text) => text.replace(/[&<>\"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[character]);
@@ -134,9 +117,6 @@
         const getStatus = (progress) => progress === 100 ? "Completed" : progress > 0 ? "In progress" : "Planned";
         const formatDate = (date) => new Intl.DateTimeFormat("en", { day: "numeric", month: "short", year: "numeric" }).format(new Date(date));
 
-        function saveProjects() {
-            localStorage.setItem(storageKey, JSON.stringify(projects));
-        }
 
         function renderProjects() {
             projects.sort((first, second) => new Date(second.lastUpdated || 0) - new Date(first.lastUpdated || 0));
@@ -163,56 +143,12 @@
                         <span>${progress}% complete · Updated ${formatDate(project.lastUpdated || Date.now())}</span>
                         <span>
                             ${project.url ? `<a class="project-link" href="${safeText(project.url)}" target="_blank" rel="noopener">View project &rarr;</a>` : ""}
-                            <button class="delete-project" type="button" data-index="${index}">Remove</button>
                         </span>
                     </div>
                     ${project.startDate && project.targetDate ? `<p class="auto-progress-note">Auto-calculated from ${formatDate(project.startDate)} to ${formatDate(project.targetDate)}.</p>` : ""}
                 </article>`;
             }).join("") : `<p class="empty-tracker">No projects saved yet. Use the form to add your first one.</p>`;
         }
-
-        // Added: gives new projects a 30-day tracking period by default.
-        const today = new Date();
-        const inThirtyDays = new Date(today);
-        inThirtyDays.setDate(today.getDate() + 30);
-        startDateInput.value = today.toISOString().slice(0, 10);
-        targetDateInput.value = inThirtyDays.toISOString().slice(0, 10);
-
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const data = new FormData(form);
-            const project = Object.fromEntries(data);
-
-            // Added: only save safe HTTP or HTTPS project links.
-            if (project.url && !/^https?:\/\//i.test(project.url)) {
-                alert("Please enter a link beginning with https:// or http://");
-                return;
-            }
-
-            // Added: prevents an automatic timeline from ending before it begins.
-            if (project.targetDate < project.startDate) {
-                alert("The target date must be on or after the start date.");
-                return;
-            }
-
-            // Added: records when the project was created or last changed.
-            project.lastUpdated = new Date().toISOString();
-            projects.unshift(project);
-            saveProjects();
-            form.reset();
-            startDateInput.value = today.toISOString().slice(0, 10);
-            targetDateInput.value = inThirtyDays.toISOString().slice(0, 10);
-            renderProjects();
-        });
-
-        // Added: removes projects or automatically saves progress changes from a card.
-        cards.addEventListener("click", (event) => {
-            if (!event.target.matches(".delete-project")) return;
-            const index = event.target.dataset.index;
-            projects.splice(index, 1);
-            saveProjects();
-            renderProjects();
-        });
 
         renderProjects();
     </script>
