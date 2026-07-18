@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Character encoding and mobile viewport settings -->
+    <!-- Basic page metadata and responsive setup. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Piter Sharma | Web Developer</title>
@@ -9,19 +9,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <!-- Main stylesheet: edit all visual styles in style.css -->
+    <!-- Shared site styles live in style.css. -->
     <link rel="stylesheet" href="style.css">
-    <!-- Main JavaScript: navigation and small page interactions -->
+    <!-- Small site interactions live in script.jss. -->
     <script src="script.jss" defer></script>
 </head>
 <body>
-    <!-- Fixed left sidebar navigation -->
+    <!-- Left sidebar navigation for desktop screens. -->
     <header>
         <nav class="navbar" aria-label="Main navigation">
-            <!-- Brand link: change "Piter" to your preferred logo text -->
+            <!-- Brand link: update this text if you want a different logo name. -->
             <a class="logo" href="#home">Piter<span>.</span></a>
 
-            <!-- Main page navigation links -->
+            <!-- Main page section links. -->
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -30,7 +30,7 @@
                 <li><a href="project-tracker.html">Tracker</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <!-- Sidebar availability and email call-to-action -->
+            <!-- Contact call-to-action in the sidebar. -->
             <div class="sidebar-footer">
                 <p class="availability">Available for work</p>
                 <a href="mailto:your.email@example.com">Let’s work together &rarr;</a>
@@ -38,9 +38,9 @@
         </nav>
     </header>
 
-    <!-- Main portfolio content -->
+    <!-- Main portfolio content starts here. -->
     <main>
-        <!-- Hero / introduction section -->
+        <!-- Hero section: quick introduction and main action buttons. -->
         <section class="hero" id="home">
             <div class="hero-content">
                 <p class="eyebrow">Hello, I am</p>
@@ -56,7 +56,7 @@ I'm a BSc CSIT student with a strong interest in Linux systems, computer network
                     <a class="button button-secondary" href="#contact">Contact Me</a>
                 </div>
             </div>
-            <!-- Profile image: replace images/piter.jpeg when you add a new photo -->
+            <!-- Profile image: replace images/piter.jpeg with your own photo. -->
             <div class="hero-image">
                 <div class="profile-placeholder">
                     <img src="images/piter.jpeg" alt="Portrait of Piter Sharma">
@@ -64,7 +64,7 @@ I'm a BSc CSIT student with a strong interest in Linux systems, computer network
             </div>
         </section>
 
-        <!-- About and skills section -->
+        <!-- About section and skill badges. -->
         <section class="section" id="about">
             <p class="eyebrow">About me</p>
             <h2>Exploring Linux, Networking & Cybersecurity.</h2>
@@ -85,7 +85,7 @@ I'm a BSc CSIT student with a strong interest in Linux systems, computer network
             </div>
         </section>
 
-        <!-- Projects section: duplicate a project-card to add a new project -->
+        <!-- Projects section: duplicate a project-card below to add another project. -->
         <section class="section projects-section" id="projects">
             <p class="eyebrow">Selected work</p>
             <h2>Recent Projects</h2>
@@ -96,7 +96,7 @@ I'm a BSc CSIT student with a strong interest in Linux systems, computer network
                         <div>
                             <h3>Linux System Administration Lab</h3>
                         </div>                                                                                                                      <p>A hands-on Linux lab where I practiced file management user                         administration, permissions, shell scripting, and essential                         command-line tools.</p>
-                        <!-- Added: opens the Linux System Administration Lab details. -->
+                        <!-- Link to the Linux project detail page. -->
                         <a href="linux-system-lab.html" aria-label="View Linux System Administration Lab">View project &rarr;</a>
                     </div>
                 </article>
@@ -105,7 +105,7 @@ I'm a BSc CSIT student with a strong interest in Linux systems, computer network
                     <div class="project-content">
                         <h3>Network Configuration Lab</h3>
                          <p>Configured IP addressing, subnetting, routing, and network services in a virtual environment to strengthen networking fundamentals.</p>
-                        <!-- Added: opens the Network Configuration Lab details. -->
+                        <!-- Link to the network project detail page. -->
                         <a href="network-configuration-lab.html" aria-label="View Network Configuration Lab">View project &rarr;</a>
                     </div>
                 </article>
@@ -114,14 +114,14 @@ I'm a BSc CSIT student with a strong interest in Linux systems, computer network
                     <div class="project-content">
                         <h3>Cybersecurity Progress Dashboard</h3>
                         <p>A personal dashboard for tracking my learning journey, completed labs, certifications, projects, and progress in Linux, networking, and cybersecurity.</p>
-                        <!-- Added: opens the project progress tracker page. -->
+                        <!-- Link to the tracker page. -->
                         <a href="project-tracker.html" aria-label="Open Cybersecurity Progress Dashboard">View project &rarr;</a>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- Contact call-to-action section -->
+        <!-- Final call-to-action section. -->
         <section class="contact-section" id="contact">
             <p class="eyebrow">Get in touch</p>
             <h2>Let’s build something great.</h2>
@@ -131,10 +131,10 @@ I'm a BSc CSIT student with a strong interest in Linux systems, computer network
         </section>
     </main>
 
-    <!-- Footer and social media links -->
+    <!-- Footer with social links. -->
     <footer>
-        <!-- The year is updated automatically by script.jss -->
-        <p>&copy; <span id="current-year">2026</span> Piter Sharma. Built with care.</p>
+        <!-- The year is updated automatically by script.jss. -->
+        <p>&copy; <span id="current-year">2026</span> Piter Sharma. </p>
         <div class="social-links">
             <a href="https://www.linkedin.com/in/piter-sharma/">LinkedIn</a>
             <a href="https://github.com/pitersharma-13">GitHub</a>

@@ -7,22 +7,23 @@
 :root {
     --sidebar-width: 270px;
 
-    /* Added: refined cybersecurity color system. */
-    --ink: #edf6ff;
-    --muted: #9fb0c7;
-    --surface: #050914;
-    --surface-alt: #0b1423;
-    --surface-raised: #0f1d30;
-    --sidebar: #070c16;
-    --accent: #35d4f6;
-    --accent-hover: #8aeaff;
-    --accent-violet: #a78bfa;
-    --success: #3ee6a8;
-    --border: #1a314b;
+    /* Added: green cyber-student color system. */
+    --ink: #effff5;
+    --muted: #9cc7ad;
+    --surface: #04100a;
+    --surface-alt: #081912;
+    --surface-raised: #0d2318;
+    --sidebar: #05110b;
+    --accent: #39e58c;
+    --accent-hover: #93f5bd;
+    --accent-violet: #1fa96a;
+    --success: #62f0a7;
+    --border: #174030;
     --shadow: 0 24px 70px rgba(0, 0, 0, .32);
 }
 
 /* ---------- 2. Base page styles ---------- */
+/* Global reset, page background, and shared text defaults. */
 * {
     box-sizing: border-box;
 }
@@ -34,12 +35,33 @@ html {
 
 body {
     margin: 0;
+    position: relative;
+    overflow-x: hidden;
     color: var(--ink);
     background-color: var(--surface);
-    background-image: radial-gradient(circle at 78% 4%, rgba(53, 212, 246, .11), transparent 25rem), radial-gradient(circle at 52% 88%, rgba(167, 139, 250, .09), transparent 30rem);
+    background-image: radial-gradient(circle at 78% 4%, rgba(57, 229, 140, .16), transparent 25rem), radial-gradient(circle at 52% 88%, rgba(31, 169, 106, .12), transparent 30rem), linear-gradient(180deg, rgba(5, 16, 10, .92), rgba(3, 8, 6, 1));
     background-attachment: fixed;
     font-family: "DM Sans", Inter, ui-sans-serif, system-ui, sans-serif;
     line-height: 1.65;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: linear-gradient(rgba(57, 255, 136, .05) 1px, transparent 1px), linear-gradient(90deg, rgba(57, 255, 136, .03) 1px, transparent 1px);
+    background-size: 100% 42px, 42px 100%;
+    opacity: .2;
+    mix-blend-mode: screen;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .02), transparent 14%, transparent 86%, rgba(57, 255, 136, .04));
 }
 
 a {
@@ -49,16 +71,17 @@ a {
 
 /* Added: consistent selection and keyboard-focus colors. */
 ::selection {
-    color: #041019;
+    color: #04100a;
     background: var(--accent);
 }
 
 :focus-visible {
-    outline: 3px solid rgba(53, 212, 246, .55);
+    outline: 3px solid rgba(57, 229, 140, .5);
     outline-offset: 3px;
 }
 
 /* ---------- 3. Fixed left sidebar ---------- */
+/* Desktop sidebar navigation and brand block. */
 .navbar {
     position: fixed;
     inset: 0 auto 0 0;
@@ -69,8 +92,8 @@ a {
     min-height: 100vh;
     padding: 38px 24px 28px;
     color: #dce3ef;
-    background: rgba(7, 12, 22, .88);
-    border-right: 1px solid rgba(147, 197, 253, .12);
+    background: rgba(3, 9, 5, .94);
+    border-right: 1px solid rgba(57, 255, 136, .14);
     box-shadow: 18px 0 48px rgba(0, 0, 0, .16);
     backdrop-filter: blur(18px);
 }
@@ -97,7 +120,7 @@ a {
     color: #fff;
     background: linear-gradient(135deg, var(--accent), var(--accent-violet));
     border-radius: 10px;
-    box-shadow: 0 8px 22px rgba(53, 212, 246, .25);
+    box-shadow: 0 8px 22px rgba(57, 255, 136, .24);
 }
 
 .logo span {
@@ -140,7 +163,7 @@ a {
 .nav-links a:hover,
 .nav-links a:focus-visible {
     color: var(--accent-hover);
-    background: rgba(53, 212, 246, .09);
+    background: rgba(57, 255, 136, .08);
     outline: none;
     transform: translateX(4px);
 }
@@ -152,8 +175,8 @@ a {
 /* Active navigation link: applied by script.jss while scrolling */
 .nav-links a.is-active {
     color: #fff;
-    background: linear-gradient(90deg, rgba(53, 212, 246, .18), rgba(167, 139, 250, .12));
-    border-color: rgba(53, 212, 246, .25);
+    background: linear-gradient(90deg, rgba(57, 255, 136, .18), rgba(24, 181, 95, .12));
+    border-color: rgba(57, 255, 136, .26);
     box-shadow: inset 3px 0 0 var(--accent);
 }
 
@@ -161,8 +184,8 @@ a {
 .sidebar-footer {
     margin-top: auto;
     padding: 18px 14px;
-    background: linear-gradient(145deg, rgba(53, 212, 246, .1), rgba(167, 139, 250, .06));
-    border: 1px solid rgba(147, 197, 253, .14);
+    background: linear-gradient(145deg, rgba(57, 255, 136, .08), rgba(24, 181, 95, .04));
+    border: 1px solid rgba(57, 255, 136, .14);
     border-radius: 12px;
 }
 
@@ -182,7 +205,7 @@ a {
     height: 8px;
     background: var(--success);
     border-radius: 50%;
-    box-shadow: 0 0 0 4px rgba(61, 220, 151, .12);
+    box-shadow: 0 0 0 4px rgba(98, 240, 167, .12);
 }
 
 .sidebar-footer a {
@@ -193,6 +216,7 @@ a {
 }
 
 /* ---------- 4. Main page layout ---------- */
+/* Shared content width and page-wide typography. */
 main,
 footer {
     margin-left: var(--sidebar-width);
@@ -227,6 +251,7 @@ h2 { font-size: clamp(2rem, 4vw, 3.3rem); }
 h3 { font-size: 1.25rem; }
 
 /* ---------- 5. Hero section ---------- */
+/* Home page introduction and profile image area. */
 .hero {
     display: grid;
     grid-template-columns: 1.5fr .8fr;
@@ -270,9 +295,9 @@ h3 { font-size: 1.25rem; }
 }
 
 .button-primary {
-    color: #041019;
-    background: linear-gradient(135deg, var(--accent), #76e7fa);
-    box-shadow: 0 10px 28px rgba(53, 212, 246, .2);
+    color: #04100a;
+    background: linear-gradient(135deg, var(--accent), #dbffe9);
+    box-shadow: 0 10px 28px rgba(57, 255, 136, .24);
 }
 
 .button-secondary {
@@ -298,9 +323,9 @@ h3 { font-size: 1.25rem; }
     letter-spacing: -.1em;
     color: #fff;
     background: linear-gradient(135deg, var(--accent), var(--accent-violet));
-    border: 8px solid rgba(237, 246, 255, .9);
+    border: 8px solid rgba(239, 255, 245, .9);
     border-radius: 32% 68% 62% 38% / 38% 36% 64% 62%;
-    box-shadow: 0 25px 65px rgba(0, 0, 0, .36), 0 0 0 10px rgba(53, 212, 246, .06);
+    box-shadow: 0 25px 65px rgba(0, 0, 0, .36), 0 0 0 10px rgba(57, 255, 136, .08);
 }
 
 /* Added: makes the profile photo fill and stay inside the shaped label. */
@@ -313,6 +338,7 @@ h3 { font-size: 1.25rem; }
 }
 
 /* ---------- 6. About and skills section ---------- */
+/* About copy and skill badge layout. */
 .section,
 .contact-section {
     padding: 100px 0;
@@ -332,13 +358,14 @@ h3 { font-size: 1.25rem; }
     padding: 7px 12px;
     font-size: .84rem;
     font-weight: 700;
-    color: #c7f6ff;
-    background: rgba(53, 212, 246, .08);
-    border: 1px solid rgba(53, 212, 246, .18);
+    color: #d8ffe7;
+    background: rgba(57, 255, 136, .08);
+    border: 1px solid rgba(57, 255, 136, .18);
     border-radius: 99px;
 }
 
 /* ---------- 7. Projects section ---------- */
+/* Project cards shown on the homepage. */
 .project-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -348,16 +375,16 @@ h3 { font-size: 1.25rem; }
 
 .project-card {
     overflow: hidden;
-    background: linear-gradient(145deg, rgba(15, 29, 48, .94), rgba(8, 18, 32, .94));
+    background: linear-gradient(145deg, rgba(7, 20, 12, .98), rgba(3, 10, 6, .98));
     border: 1px solid var(--border);
     border-radius: 15px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, .16);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .2), inset 0 1px 0 rgba(255, 255, 255, .02);
     transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
 
 /* Added: polished lift effect for project cards. */
 .project-card:hover {
-    border-color: rgba(53, 212, 246, .45);
+    border-color: rgba(57, 255, 136, .48);
     box-shadow: var(--shadow);
     transform: translateY(-6px);
 }
@@ -372,9 +399,9 @@ h3 { font-size: 1.25rem; }
 }
 
 /* Individual project banner colors */
-.project-one { background: linear-gradient(135deg, #0f3b55, #0a2038); }
-.project-two { background: linear-gradient(135deg, #24356b, #151d42); }
-.project-three { background: linear-gradient(135deg, #3d2569, #1a1b40); }
+ .project-one { background: linear-gradient(135deg, #0e6a35, #04150c); }
+ .project-two { background: linear-gradient(135deg, #0c7f3d, #03100a); }
+ .project-three { background: linear-gradient(135deg, #0a5a2e, #04140c); }
 
 .project-content {
     padding: 23px;
@@ -392,6 +419,7 @@ h3 { font-size: 1.25rem; }
 }
 
 /* ---------- 8. Contact and footer ---------- */
+/* Final CTA and footer links. */
 .contact-section {
     text-align: center;
 }
@@ -408,7 +436,7 @@ footer {
     padding: 26px clamp(28px, 6vw, 88px);
     font-size: .85rem;
     color: var(--muted);
-    background: rgba(6, 12, 22, .5);
+    background: rgba(2, 7, 4, .65);
     border-top: 1px solid var(--border);
 }
 
@@ -421,6 +449,7 @@ footer {
 }
 
 /* ---------- 9. Project tracker page (added) ---------- */
+/* Tracker summary, local file gallery, and saved project cards. */
 .tracker-page {
     min-height: 100vh;
 }
@@ -448,10 +477,10 @@ footer {
 
 .metric-card {
     padding: 18px;
-    background: linear-gradient(145deg, rgba(18, 39, 61, .92), rgba(9, 23, 39, .92));
+    background: linear-gradient(145deg, rgba(7, 22, 14, .96), rgba(3, 10, 6, .96));
     border: 1px solid var(--border);
     border-radius: 14px;
-    box-shadow: 0 14px 30px rgba(0, 0, 0, .12);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, .18);
 }
 
 .metric-card span {
@@ -479,15 +508,57 @@ footer {
 .tracker-form,
 .tracker-list {
     padding: 24px;
-    background: rgba(11, 20, 35, .82);
+    background: rgba(4, 13, 8, .9);
     border: 1px solid var(--border);
     border-radius: 18px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, .16);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, .2);
+}
+
+.project-editor {
+    display: grid;
+    gap: 18px;
+}
+
+.project-editor form {
+    display: grid;
+    gap: 14px;
+}
+
+.project-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.project-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.form-note {
+    margin: 0;
+    font-size: .8rem;
+    color: var(--muted);
 }
 
 .tracker-form h2,
 .tracker-list h2 {
     font-size: 1.35rem;
+}
+
+.upload-panel {
+    display: grid;
+    gap: 18px;
+}
+
+.tracker-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
 }
 
 .form-field {
@@ -508,7 +579,7 @@ footer {
     padding: 10px 12px;
     font: inherit;
     color: var(--ink);
-    background: #071422;
+    background: #03110a;
     border: 1px solid var(--border);
     border-radius: 8px;
 }
@@ -522,7 +593,7 @@ footer {
 .form-field input,
 .form-field select,
 .form-field textarea {
-    background: rgba(4, 13, 25, .85);
+    background: rgba(3, 12, 7, .92);
     transition: border-color .2s ease, box-shadow .2s ease;
 }
 
@@ -531,12 +602,130 @@ footer {
 .form-field textarea:focus {
     border-color: var(--accent);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(53, 212, 246, .12);
+    box-shadow: 0 0 0 3px rgba(57, 255, 136, .16);
 }
 
 .field-help {
     font-size: .75rem;
     color: var(--muted);
+}
+
+.upload-status {
+    margin: 0;
+    font-size: .8rem;
+    color: var(--muted);
+}
+
+.upload-list {
+    display: grid;
+    gap: 12px;
+}
+
+
+.project-attachment {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 14px;
+    padding: 14px;
+    background: rgba(3, 12, 7, .7);
+    border: 1px solid rgba(57, 255, 136, .12);
+    border-radius: 12px;
+}
+
+.project-attachment strong {
+    display: block;
+    font-size: .88rem;
+}
+
+.project-attachment p {
+    margin: 4px 0 0;
+    font-size: .8rem;
+    color: var(--muted);
+    word-break: break-word;
+}
+
+.project-card-action,
+.delete-project {
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    background: none;
+    border: 0;
+}
+
+.project-card-action {
+    margin-right: 12px;
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.upload-item {
+    color: #9fffbf;
+    font-weight: 700;
+    border-radius: 14px;
+}
+
+.upload-preview {
+    display: grid;
+    width: 92px;
+    height: 92px;
+    overflow: hidden;
+    place-items: center;
+    background: #04110b;
+    border-radius: 12px;
+}
+
+.upload-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.file-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    padding: 8px 10px;
+    font-size: .74rem;
+    font-weight: 800;
+    color: #04100a;
+    background: linear-gradient(135deg, var(--accent), #dbffe9);
+    border-radius: 999px;
+}
+
+.upload-meta {
+    display: grid;
+    align-content: start;
+    gap: 4px;
+}
+
+.upload-meta strong {
+    font-size: .96rem;
+}
+
+.upload-meta span {
+    font-size: .78rem;
+    color: var(--muted);
+}
+
+.upload-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 6px;
+    font-size: .82rem;
+}
+
+.delete-upload {
+    padding: 0;
+    font: inherit;
+    font-weight: 700;
+    color: #9fffbf;
+    cursor: pointer;
+    background: none;
+    border: 0;
 }
 
 .progress-value {
@@ -570,14 +759,15 @@ footer {
 /* Added: each saved project displays its status and progress. */
 .tracker-card {
     padding: 18px;
-    background: linear-gradient(145deg, rgba(8, 22, 38, .95), rgba(7, 15, 27, .95));
+    background: linear-gradient(145deg, rgba(7, 18, 11, .96), rgba(3, 10, 6, .96));
     border: 1px solid var(--border);
     border-radius: 14px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .02);
     transition: border-color .2s ease, transform .2s ease;
 }
 
 .tracker-card:hover {
-    border-color: rgba(53, 212, 246, .35);
+    border-color: rgba(57, 229, 140, .35);
     transform: translateY(-2px);
 }
 
@@ -602,8 +792,8 @@ footer {
     padding: 3px 8px;
     font-size: .72rem;
     font-weight: 800;
-    color: #06141d;
-    background: linear-gradient(135deg, var(--accent), #a5f3fc);
+    color: #04100a;
+    background: linear-gradient(135deg, var(--accent), #dbffe9);
     border-radius: 99px;
     white-space: nowrap;
 }
@@ -612,7 +802,7 @@ footer {
     height: 8px;
     margin-top: 16px;
     overflow: hidden;
-    background: #142940;
+    background: #081a10;
     border-radius: 99px;
 }
 
@@ -644,6 +834,7 @@ footer {
 }
 
 /* ---------- 10. Individual project detail pages (added) ---------- */
+/* Shared layout for the Linux and network detail pages. */
 .project-detail-page {
     min-height: 100vh;
     padding-top: 72px;
@@ -652,8 +843,8 @@ footer {
 
 .project-detail-hero {
     padding: clamp(28px, 5vw, 56px);
-    background: linear-gradient(135deg, rgba(53, 212, 246, .13), rgba(167, 139, 250, .1));
-    border: 1px solid rgba(53, 212, 246, .22);
+    background: linear-gradient(135deg, rgba(57, 255, 136, .12), rgba(24, 181, 95, .08));
+    border: 1px solid rgba(57, 255, 136, .22);
     border-radius: 22px;
     box-shadow: var(--shadow);
 }
@@ -704,9 +895,9 @@ footer {
     padding: 6px 10px;
     font-size: .78rem;
     font-weight: 700;
-    color: #c7f6ff;
-    background: rgba(53, 212, 246, .08);
-    border: 1px solid rgba(53, 212, 246, .18);
+    color: #d8ffe7;
+    background: rgba(57, 255, 136, .08);
+    border: 1px solid rgba(57, 255, 136, .18);
     border-radius: 999px;
 }
 
@@ -725,7 +916,14 @@ footer {
     text-align: center;
 }
 
+.upload-empty {
+    margin: 0;
+    color: var(--muted);
+    font-size: .86rem;
+}
+
 /* ---------- 11. Tablet and mobile layout ---------- */
+/* Collapse the sidebar into a top bar on smaller screens. */
 @media (max-width: 800px) {
     /* Change fixed sidebar into a compact top navigation */
     .navbar {
@@ -775,9 +973,15 @@ footer {
     .tracker-layout { grid-template-columns: 1fr; }
     .tracker-header { display: grid; }
     .project-detail-grid { grid-template-columns: 1fr; }
+    .tracker-toolbar { align-items: start; }
+    .project-form-grid,
+    .upload-item { grid-template-columns: 1fr; }
+    .upload-preview { width: 100%; height: 180px; }
+    .project-attachment { flex-direction: column; }
 }
 
 /* ---------- 12. Small mobile refinements ---------- */
+/* Final spacing and navigation tuning for narrow screens. */
 @media (max-width: 500px) {
     .navbar { padding: 11px 15px; }
     .logo::before { width: 29px; height: 29px; }

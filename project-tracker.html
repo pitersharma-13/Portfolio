@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Tracker page settings and shared portfolio styling -->
+    <!-- Tracker page metadata and shared portfolio styling. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Progress Tracker | Piter Sharma</title>
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Sidebar: links back to each portfolio section and this tracker -->
+    <!-- Shared sidebar navigation for the tracker page. -->
     <header>
         <nav class="navbar" aria-label="Main navigation">
             <a class="logo" href="index.html#home">Piter<span>.</span></a>
@@ -30,7 +30,7 @@
         </nav>
     </header>
 
-    <!-- Project tracker: add a project and review its saved progress cards -->
+    <!-- Main tracker area: summary, saved files, and public projects. -->
     <main class="tracker-page">
         <section class="tracker-header">
             <div>
@@ -41,7 +41,7 @@
             <a class="button button-secondary" href="index.html#projects">Back to portfolio</a>
         </section>
 
-        <!-- Added: automatically calculated project summary metrics. -->
+        <!-- Summary cards calculated from the public project list. -->
         <section class="tracker-metrics" aria-label="Project progress summary">
             <article class="metric-card"><span>Total projects</span><strong id="total-projects">0</strong></article>
             <article class="metric-card"><span>In progress</span><strong id="active-projects">0</strong></article>
@@ -50,10 +50,63 @@
         </section>
 
         <section class="tracker-layout" aria-label="Project tracking dashboard">
-            <!-- Removed form and replaced with public showcase info -->
-            <div class="tracker-form public-info"><h2>Project Showcase</h2><p>This page displays selected projects and their progress. Project management is private and not available on the public portfolio.</p></div>
+            <!-- Project editor: add or update a project from this browser only. -->
+            <div class="tracker-form project-editor">
+                <h2>Add or update project</h2>
+                <p>This editor saves your projects in this browser only. Add a link, a file, or both, and the tracker will show the progress cards on this page.</p>
+                <form id="project-form">
+                    <input id="project-id" type="hidden">
 
-            <!-- Saved project cards -->
+                    <!-- Project title and description. -->
+                    <div class="form-field">
+                        <label for="project-name">Project title</label>
+                        <input id="project-name" name="project-name" type="text" placeholder="Linux System Administration Lab" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="project-description">Short description</label>
+                        <textarea id="project-description" name="project-description" placeholder="Describe what the project does and what you learned."></textarea>
+                    </div>
+
+                    <div class="project-form-grid">
+                        <div class="form-field">
+                            <label for="project-start">Start date</label>
+                            <input id="project-start" name="project-start" type="date">
+                        </div>
+                        <div class="form-field">
+                            <label for="project-target">Target date</label>
+                            <input id="project-target" name="project-target" type="date">
+                        </div>
+                    </div>
+
+                    <!-- Progress slider and live value display. -->
+                    <div class="form-field">
+                        <label for="project-progress">Progress</label>
+                        <input id="project-progress" name="project-progress" type="range" min="0" max="100" value="0">
+                        <p class="field-help">Use this when the project does not have dates yet. If dates are filled in, the progress is calculated automatically.</p>
+                        <span class="progress-value" id="progress-value">0%</span>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="project-url">Project link</label>
+                        <input id="project-url" name="project-url" type="url" placeholder="https://github.com/your-name/project">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="project-attachment">File attachment</label>
+                        <input id="project-attachment" name="project-attachment" type="file" accept="image/*,application/pdf">
+                        <p class="field-help">Optional screenshot or PDF preview. The file is stored in this browser only.</p>
+                    </div>
+
+                    <div class="project-form-actions">
+                        <button class="button button-primary" type="submit" id="save-project">Save project</button>
+                        <button class="button button-secondary" type="button" id="reset-project-form">Clear form</button>
+                    </div>
+                </form>
+                <p class="form-note">Only this browser can add or edit projects unless you connect a backend later.</p>
+            </div>
+
+            <!-- Public project cards shown to visitors. -->
             <div class="tracker-list">
                 <div class="tracker-list-header">
                     <h2>Your projects</h2>
@@ -64,7 +117,7 @@
         </section>
     </main>
 
-    <!-- Tracker functionality: uses localStorage so data remains after refresh. -->
+    <!-- Tracker logic: localStorage keeps browser-only project data between refreshes. -->
     <script>
         const storageKey = "piter-portfolio-projects";
         const cards = document.querySelector("#tracker-cards");
@@ -73,12 +126,23 @@
         const activeProjects = document.querySelector("#active-projects");
         const completedProjects = document.querySelector("#completed-projects");
         const averageProgress = document.querySelector("#average-progress");
+        const projectForm = document.querySelector("#project-form");
+        const projectIdInput = document.querySelector("#project-id");
+        const projectNameInput = document.querySelector("#project-name");
+        const projectDescriptionInput = document.querySelector("#project-description");
+        const projectStartInput = document.querySelector("#project-start");
+        const projectTargetInput = document.querySelector("#project-target");
+        const projectProgressInput = document.querySelector("#project-progress");
+        const projectProgressValue = document.querySelector("#progress-value");
+        const projectUrlInput = document.querySelector("#project-url");
+        const projectAttachmentInput = document.querySelector("#project-attachment");
+        const resetProjectFormButton = document.querySelector("#reset-project-form");
+        const saveProjectButton = document.querySelector("#save-project");
 
-        // Public portfolio projects.
-        // Add a new object to this array whenever you complete a project.
-        // Visitors can only view these projects.
-        const projects = [
+        // Default project cards shown when the browser has no saved projects yet.
+        const defaultProjects = [
             {
+                id: "portfolio-website",
                 name: "Portfolio Website",
                 description: "A responsive personal portfolio built using HTML, CSS, and JavaScript to showcase my skills and projects.",
                 startDate: "2026-07-01",
@@ -86,8 +150,8 @@
                 lastUpdated: "2026-07-14",
                 url: "https://github.com/pitersharma-13"
             },
-            // Example project. Copy this object to add another project.
             {
+                id: "business-landing-page",
                 name: "Business Landing Page",
                 description: "A modern, responsive landing page focused on clear messaging, clean UI, and improved user conversion.",
                 startDate: "2026-07-08",
@@ -96,13 +160,73 @@
                 url: "https://github.com/pitersharma-13"
             }
         ];
-        
-        
 
-        // Added: prevents project text from being interpreted as HTML.
-        const safeText = (text) => text.replace(/[&<>\"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[character]);
+        // Load saved projects from the browser, or seed the defaults on first visit.
+        const loadProjects = () => {
+            try {
+                const savedProjects = JSON.parse(localStorage.getItem(storageKey) || "[]");
+                return Array.isArray(savedProjects) && savedProjects.length
+                    ? savedProjects.map((project) => ({
+                        id: project.id || (globalThis.crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`),
+                        ...project
+                    }))
+                    : defaultProjects;
+            } catch {
+                return defaultProjects;
+            }
+        };
 
-        // Added: calculates progress automatically from a project's start and target dates.
+        let projects = loadProjects();
+
+        const saveProjects = () => {
+            try {
+                localStorage.setItem(storageKey, JSON.stringify(projects));
+                return true;
+            } catch {
+                return false;
+            }
+        };
+
+        // Escape user-facing text before inserting it into HTML.
+        const safeText = (text) => String(text ?? "").replace(/[&<>\"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[character]);
+
+        // Keep links safe by only allowing common web protocols.
+        const safeHref = (value) => {
+            const text = String(value ?? "").trim();
+            return /^(https?:|mailto:|data:|blob:)/i.test(text) ? text : "#";
+        };
+
+        // Turn the range slider into a visible percentage label.
+        const updateProgressLabel = () => {
+            projectProgressValue.textContent = `${projectProgressInput.value}%`;
+        };
+
+        // Read a local file and store it as a data URL in the browser.
+        const readFileAsDataUrl = (file) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve({
+                name: file.name,
+                type: file.type || "application/octet-stream",
+                size: file.size,
+                dataUrl: reader.result
+            });
+            reader.onerror = () => reject(reader.error);
+            reader.readAsDataURL(file);
+        });
+
+        const formatFileSize = (size) => {
+            if (!size) return "0 KB";
+            const units = ["B", "KB", "MB", "GB"];
+            let value = size;
+            let unitIndex = 0;
+            while (value >= 1024 && unitIndex < units.length - 1) {
+                value /= 1024;
+                unitIndex += 1;
+            }
+            return `${value.toFixed(value >= 10 || unitIndex === 0 ? 0 : 1)} ${units[unitIndex]}`;
+        };
+
+        // Calculate progress from the project dates, or use the manual progress value.
         const getProjectProgress = (project) => {
             if (!project.startDate || !project.targetDate) return Number(project.progress) || 0;
             const start = new Date(`${project.startDate}T00:00:00`);
@@ -113,9 +237,99 @@
             return Math.min(100, Math.max(0, Math.round(((today - start) / totalTime) * 100)));
         };
 
-        // Status updates automatically from the calculated progress.
+        // Turn the calculated progress into a status label.
         const getStatus = (progress) => progress === 100 ? "Completed" : progress > 0 ? "In progress" : "Planned";
         const formatDate = (date) => new Intl.DateTimeFormat("en", { day: "numeric", month: "short", year: "numeric" }).format(new Date(date));
+
+        // Reset the project editor so the next save becomes a new project.
+        const resetProjectForm = () => {
+            projectIdInput.value = "";
+            projectForm.reset();
+            projectProgressInput.value = "0";
+            updateProgressLabel();
+            projectAttachmentInput.value = "";
+            saveProjectButton.textContent = "Save project";
+        };
+
+        // Fill the editor with an existing project so you can update it.
+        const editProject = (projectId) => {
+            const project = projects.find((entry) => entry.id === projectId);
+            if (!project) return;
+
+            projectIdInput.value = project.id;
+            projectNameInput.value = project.name || "";
+            projectDescriptionInput.value = project.description || "";
+            projectStartInput.value = project.startDate || "";
+            projectTargetInput.value = project.targetDate || "";
+            projectProgressInput.value = Number(project.progress) || 0;
+            projectUrlInput.value = project.url || "";
+            projectAttachmentInput.value = "";
+            saveProjectButton.textContent = "Update project";
+            updateProgressLabel();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+
+        // Remove a project from the browser storage.
+        const deleteProject = (projectId) => {
+            projects = projects.filter((project) => project.id !== projectId);
+            saveProjects();
+            renderProjects();
+            resetProjectForm();
+        };
+
+        // Save a new project or update an existing one.
+        projectForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const attachmentFile = projectAttachmentInput.files?.[0];
+            let attachment = null;
+            const existingProject = projects.find((project) => project.id === projectIdInput.value);
+
+            if (attachmentFile) {
+                const attachmentData = await readFileAsDataUrl(attachmentFile);
+                attachment = {
+                    name: attachmentData.name,
+                    type: attachmentData.type,
+                    size: attachmentData.size,
+                    dataUrl: attachmentData.dataUrl
+                };
+            } else if (existingProject?.attachment) {
+                attachment = existingProject.attachment;
+            }
+
+            const hasDates = projectStartInput.value && projectTargetInput.value;
+            const projectRecord = {
+                id: projectIdInput.value || (globalThis.crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`),
+                name: projectNameInput.value.trim(),
+                description: projectDescriptionInput.value.trim(),
+                startDate: projectStartInput.value,
+                targetDate: projectTargetInput.value,
+                progress: hasDates ? undefined : Number(projectProgressInput.value) || 0,
+                url: projectUrlInput.value.trim(),
+                attachment,
+                lastUpdated: new Date().toISOString()
+            };
+
+            if (!projectRecord.name) return;
+
+            if (hasDates) {
+                projectRecord.progress = undefined;
+            }
+
+            const existingIndex = projects.findIndex((project) => project.id === projectRecord.id);
+            if (existingIndex >= 0) {
+                projects[existingIndex] = { ...projects[existingIndex], ...projectRecord };
+            } else {
+                projects = [projectRecord, ...projects];
+            }
+
+            saveProjects();
+            renderProjects();
+            resetProjectForm();
+        });
+
+        resetProjectFormButton.addEventListener("click", resetProjectForm);
+        projectProgressInput.addEventListener("input", updateProgressLabel);
 
 
         function renderProjects() {
@@ -131,6 +345,7 @@
             averageProgress.textContent = `${average}%`;
             cards.innerHTML = projects.length ? projects.map((project, index) => {
                 const progress = getProjectProgress(project);
+                const hasAttachment = Boolean(project.attachment?.dataUrl);
                 return `
                 <article class="tracker-card">
                     <div class="tracker-card-top">
@@ -138,17 +353,51 @@
                         <span class="status-badge">${getStatus(progress)}</span>
                     </div>
                     ${project.description ? `<p>${safeText(project.description)}</p>` : ""}
+                    ${hasAttachment ? `
+                        <div class="project-attachment">
+                            <div>
+                                <strong>Attached file</strong>
+                                <p>${safeText(project.attachment.name)} · ${formatFileSize(project.attachment.size)}</p>
+                            </div>
+                            <a class="project-link" href="${safeHref(project.attachment.dataUrl)}" download="${safeText(project.attachment.name)}">Open file &rarr;</a>
+                        </div>` : ""}
+                    ${project.url ? `
+                        <div class="project-attachment">
+                            <div>
+                                <strong>Project link</strong>
+                                <p>${safeText(project.url)}</p>
+                            </div>
+                            <a class="project-link" href="${safeHref(project.url)}" target="_blank" rel="noopener">Visit link &rarr;</a>
+                        </div>` : ""}
                     <div class="progress-track"><div class="progress-bar" style="width: ${progress}%"></div></div>
                     <div class="tracker-card-footer">
                         <span>${progress}% complete · Updated ${formatDate(project.lastUpdated || Date.now())}</span>
                         <span>
-                            ${project.url ? `<a class="project-link" href="${safeText(project.url)}" target="_blank" rel="noopener">View project &rarr;</a>` : ""}
+                            <button class="project-card-action" type="button" data-action="edit" data-project-id="${safeText(project.id)}">Edit</button>
+                            <button class="delete-project" type="button" data-action="delete" data-project-id="${safeText(project.id)}">Delete</button>
                         </span>
                     </div>
                     ${project.startDate && project.targetDate ? `<p class="auto-progress-note">Auto-calculated from ${formatDate(project.startDate)} to ${formatDate(project.targetDate)}.</p>` : ""}
                 </article>`;
             }).join("") : `<p class="empty-tracker">No projects saved yet. Use the form to add your first one.</p>`;
         }
+
+        cards.addEventListener("click", (event) => {
+            const editButton = event.target.closest('[data-action="edit"]');
+            const deleteButton = event.target.closest('[data-action="delete"]');
+
+            if (editButton) {
+                editProject(editButton.getAttribute("data-project-id"));
+                return;
+            }
+
+            if (deleteButton) {
+                deleteProject(deleteButton.getAttribute("data-project-id"));
+            }
+        });
+
+        saveProjects();
+        updateProgressLabel();
 
         renderProjects();
     </script>
